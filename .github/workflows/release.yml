@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      APP_NAME: ControlPanel
+      APP_NAME: clipboard_Linux
       SCCACHE_DIR: /home/runner/.cache/sccache
       RUSTC_WRAPPER: sccache
       CMAKE_C_COMPILER_LAUNCHER: sccache
