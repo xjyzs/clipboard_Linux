@@ -25,7 +25,7 @@ find_package(OpenSSL REQUIRED)
 
 add_executable(clipboard_Linux main.cpp
         utils/clipboard.hpp)
-target_include_directories(clipboard_Linux PRIVATE ${OPENSSL_INCLUDE_DIR})
+target_include_directories(clipboard_Linux PRIVATE ${OPENSSL_INCLUDE_DIR} ${sio_SOURCE_DIR}/src)
 
 slint_target_sources(clipboard_Linux ui/main.slint)
 
