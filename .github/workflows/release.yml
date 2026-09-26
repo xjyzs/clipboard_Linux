@@ -41,7 +41,9 @@ jobs:
             libxcb-shape0-dev \
             libxcb-xfixes0-dev \
             libx11-dev \
-            libgl1-mesa-dev
+            libgl1-mesa-dev \
+            libxfixes-dev \
+            
 
       - name: 安装 Rust
         uses: dtolnay/rust-toolchain@stable
