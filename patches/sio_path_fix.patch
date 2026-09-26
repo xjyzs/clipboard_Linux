@@ -1,0 +1,23 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index f0bd695..36aeddc 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
++cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+ PROJECT(sioclient)
+ 
+ option(BUILD_SHARED_LIBS "Build the shared library" OFF)
+diff --git a/src/internal/sio_client_impl.cpp b/src/internal/sio_client_impl.cpp
+index 53cfe53..b86dd00 100644
+--- a/src/internal/sio_client_impl.cpp
++++ b/src/internal/sio_client_impl.cpp
+@@ -241,7 +241,7 @@ namespace sio
+ 
+             // If a resource path was included in the URI, use that, otherwise
+             // use the default /socket.io/.
+-            const std::string path(uo.get_resource() == "/" ? "/socket.io/" : uo.get_resource());
++            const std::string path(uo.get_resource() == "/" ? "/socket.io/" : uo.get_resource() + "/socket.io/");
+ 
+             ss<<":"<<uo.get_port()<<path<<"?EIO=4&transport=websocket";
+             if(m_sid.size()>0){

@@ -1,0 +1,117 @@
+import {
+    AboutSlint,
+    VerticalBox,
+    Button,
+    HorizontalBox,
+    StandardButton,
+    Button,
+    Palette,
+    ScrollView,
+    Switch,
+    RadioGroup,
+    TextEdit,
+    LineEdit,
+} from "std-widgets.slint";
+import { AlertDialog, InfoCard } from "widgets.slint";
+
+
+
+export component MainWindow inherits Window {
+    callback button_clicked();
+    preferred-height: 768px;
+    preferred-width: 1024px;
+    max-width: 100000px;
+    max-height: 100000px;
+    background: #E2E2E9;
+
+    in-out property <string> clipText:"正在连接...";
+    in-out property <string> editingText;
+    in-out property <string> newText;
+    // 应用完成初始化
+    in-out property <bool> initialized: false;
+
+    callback submit(string);
+    callback setUrl(string);
+    callback copy(string);
+
+    VerticalBox {
+        alignment: start;
+        Text {
+            text: "网络剪贴板";
+            font-size: 36px;
+        }
+
+        HorizontalLayout {
+            input := TextEdit {
+                text: editingText;
+                horizontal-stretch: 1;
+                height: clamp(measurer.preferred-height + 24px, 36px, 160px);
+            }
+
+            Button {
+                text: "提交";
+                primary: true;
+                clicked => {
+                    submit(input.text);
+                }
+            }
+        }
+
+        Rectangle {
+            preferred-height: 114514px;
+
+            ScrollView {
+                width: 100%;
+                height: 100%;
+                viewport-height: ti.preferred-height;
+
+                ti := TextInput {
+                    text: clipText;
+                    read-only: true;
+                    wrap: word-wrap;
+                }
+            }
+
+            Button {
+                x: parent.width - self.width;
+                y: 0;
+                text: "复制";
+                clicked => {
+                copy(clipText);
+                }
+            }
+        }
+    }
+
+    measurer := Text {
+        visible: false;
+        font-size: input.font-size;
+        text: input.text;
+    }
+
+    in-out property <bool> show_alert: false;
+    AlertDialog {
+        is_open: show_alert;
+        title: "需要安装 wl-clipboard";
+        text: "Debian/Ubuntu: sudo apt install wl-clipboard\nArch:          sudo pacman -S wl-clipboard\nFedora:        sudo dnf install wl-clipboard";
+        confirm_text: "确定";
+        confirmed => { show_alert = false; }
+    }
+
+    in-out property <bool> show_url_alert: false;
+    AlertDialog {
+        is_open: show_url_alert;
+        title: "设置服务器 URL";
+        LineEdit {
+            text <=> newText;
+        }
+
+        confirm_text: "确定";
+        confirmed => {
+            show_url_alert = false;
+            setUrl(newText)
+        }
+        cancel_text: "取消";
+        canceled => { show_url_alert = false; }
+    }
+}
