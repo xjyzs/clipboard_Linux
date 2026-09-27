@@ -8,6 +8,16 @@ if(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Build type" FORCE)
 endif()
 
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_compile_options(-ffunction-sections -fdata-sections)
+    add_link_options(
+            -Wl,--gc-sections
+            -Wl,--as-needed
+            -Wl,--build-id=none
+            -Wl,-O1
+    )
+endif()
+
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build bundled dependencies as static libraries" FORCE)
 
 set(SLINT_FEATURE_INTERPRETER OFF CACHE BOOL "" FORCE)
@@ -57,13 +67,3 @@ target_link_libraries(clipboard_Linux PRIVATE
         pthread
         Slint::Slint
 )
-
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    add_compile_options(-ffunction-sections -fdata-sections)
-    add_link_options(
-            -Wl,--gc-sections
-            -Wl,--as-needed
-            -Wl,--build-id=none
-            -Wl,-O1
-    )
-endif()
