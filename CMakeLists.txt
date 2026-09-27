@@ -33,6 +33,7 @@ target_link_libraries(clipboard_Linux PRIVATE
         sioclient_tls
         ${OPENSSL_LIBRARIES}
         pthread
+        fontconfig
         Slint::Slint
 )
 
