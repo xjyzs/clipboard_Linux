@@ -30,8 +30,8 @@ static void set_url(const string &newUrl) {
     if (f != nullptr) {
         fputs(newUrl.c_str(), f);
         fclose(f);
-    }
-    thread([newUrl]() {
+    }else perror("fopen failed");
+    thread([]() {
         try {
             sio_client.sync_close();
             sio_client.connect(url);
@@ -94,7 +94,7 @@ int main(const int argc, char **argv) {
         set_url((string) s);
     });
 
-    ui->on_setUrl([](const slint::SharedString &s) {
+    ui->on_copy([](const slint::SharedString &s) {
         clip.copy((string) s);
     });
 
