@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.30)
+cmake_minimum_required(VERSION 3.21)
 project(clipboard_Linux)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -32,8 +32,6 @@ slint_target_sources(clipboard_Linux ui/main.slint)
 target_link_libraries(clipboard_Linux PRIVATE
         sioclient_tls
         ${OPENSSL_LIBRARIES}
-        X11
-        Xfixes
         pthread
         Slint::Slint
 )
