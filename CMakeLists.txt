@@ -33,8 +33,8 @@ target_link_libraries(clipboard_Linux PRIVATE
         sioclient_tls
         ${OPENSSL_LIBRARIES}
         pthread
-        fontconfig
         Slint::Slint
+        fontconfig
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
