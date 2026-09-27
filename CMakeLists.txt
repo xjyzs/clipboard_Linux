@@ -19,6 +19,8 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Slint)
 
+target_link_libraries(Slint INTERFACE fontconfig)
+
 add_compile_definitions(SIO_TLS)
 
 find_package(OpenSSL REQUIRED)
@@ -34,7 +36,6 @@ target_link_libraries(clipboard_Linux PRIVATE
         ${OPENSSL_LIBRARIES}
         pthread
         Slint::Slint
-        fontconfig
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
